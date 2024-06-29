@@ -1,7 +1,11 @@
 import React from "react";
 
 const Body = () => {
-  return <div>Body</div>;
+  return (
+    <div>
+      <img src="../../public/NasaPic.jpg" alt="Nebula" />
+    </div>
+  );
 };
 
 export default Body;
