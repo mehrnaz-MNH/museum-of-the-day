@@ -7,24 +7,41 @@ const url = `https://api.nasa.gov/planetary/apod?api_key=${api_key}`;
 
 function App() {
   const [showSide, setShowSide] = useState(false);
-  const [dailyData, setDailyData] = useState([]);
+  const [dailyData, setDailyData] = useState(null);
 
-  const getDailyInfo = async () => {
-    await axios.get(url).then((response) => {
-      setDailyData(response.data);
-    });
-  };
+  // const getDailyInfo = async () => {
+  //   await axios.get(url).then((response) => {
+  //     setDailyData(response.data);
+  //   });
+  // };
+
+  async function getFromAPI() {
+    const today = new Date().toDateString();
+    const localKey = `NASA-${today}`;
+    if (localStorage.getItem(localKey)) {
+      setDailyData(JSON.parse(localStorage.getItem(localKey)));
+      return;
+    }
+
+    localStorage.clear();
+
+    try {
+      const response = await fetch(url);
+      const dataFromAPI = await response.json();
+      localStorage.setItem(localKey, JSON.stringify(dataFromAPI));
+      setDailyData(dataFromAPI);
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
 
   useEffect(() => {
-    getDailyInfo();
+    getFromAPI();
   }, []);
 
   function handleModelClick() {
-    setShowSide(!showSide);
+    setShowSide((prevSide) => !prevSide);
   }
-
-  console.log(dailyData.title);
-  console.log(dailyData.explanation);
 
   return (
     <div id="root">
