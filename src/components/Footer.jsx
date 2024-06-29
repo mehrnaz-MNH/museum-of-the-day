@@ -1,17 +1,19 @@
 import React from "react";
 
-const Footer = () => {
+const Footer = ({ onInfoClickHandle, title }) => {
   return (
-    <div>
-      <div className="PicsInfo">
-        <h2>Nebula Picture From Nasa</h2>
-        <button>
-          <i className="fa-solid fa-circle-info"></i>
-        </button>
+    <footer>
+      <div className="bgGradient"></div>
+
+      <div>
+        <h2>{title}</h2>
+        <h1>Museum Of The Day</h1>
       </div>
 
-      <h1>Astronomy Project</h1>
-    </div>
+      <button onClick={onInfoClickHandle}>
+        <i className="fa-solid fa-circle-info"></i>
+      </button>
+    </footer>
   );
 };
 

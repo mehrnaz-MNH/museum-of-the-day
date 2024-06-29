@@ -1,9 +1,9 @@
 import React from "react";
 
-const Body = () => {
+const Body = ({ imgUrl, altTitle }) => {
   return (
-    <div>
-      <img src="../../public/NasaPic.jpg" alt="Nebula" />
+    <div className="picContainer">
+      <img src={imgUrl} alt={altTitle} className="mainImage" />
     </div>
   );
 };
